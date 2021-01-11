@@ -1,0 +1,98 @@
+#page-landing {
+    background-color: #000000;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-landing .content-wrapper {
+    width: 100%;   
+    max-width: 1100px;
+
+    height: 100%;
+    max-height: 650px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "main logo";
+
+}
+
+#page-landing .content-wrapper main {
+    grid-area: main;
+
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#page-landing .content-wrapper main h1 {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 68px;
+    margin-bottom: 15px;
+
+    color: #FFFFFF;
+}
+
+#page-landing .content-wrapper main .app-description {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 34px;
+
+    color: #FFFFFF;
+    margin-bottom: 50px;
+}
+
+#page-landing .content-wrapper main .enter-app {
+    width: 355px;
+    height: 80px;
+
+    color: #FFFFFF;
+    background-color: #0000FF;
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    transition: background-color .3s
+}
+
+#page-landing .content-wrapper main .enter-app:hover {
+    background-color: #0000a4;
+    color: #d6d6d6
+}
+
+#page-landing .content-wrapper main .enter-app p {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 34px;
+
+    text-decoration: none;
+}
+
+#page-landing .content-wrapper section {
+    grid-area: logo;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
