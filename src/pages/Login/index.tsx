@@ -15,7 +15,7 @@ function Login() {
 
     function handleLogIn() {
         const userData = {email, password}
-        push('/app')
+        push('/wallet')
     }
 
     return (

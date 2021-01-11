@@ -25,7 +25,7 @@ function Landing() {
                 </main>
                 
                 <div className="logo-container">
-                    <img src={logoImg} alt="happy" />
+                    <img src={logoImg} alt="stocks simulation" />
                 </div>
             </div>
         </div>
