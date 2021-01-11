@@ -46,6 +46,10 @@
     margin-right: 10px;
 }
 
+.aside-container .aside-main-content .active {
+    color: #0000ff
+}
+
 .aside-container footer a,
 .aside-container footer button {
     width: 40px;
