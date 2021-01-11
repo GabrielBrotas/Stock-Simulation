@@ -6,7 +6,7 @@ import {FiArrowLeft} from 'react-icons/fi'
 import logoImg from '../../assets/images/logo-with-name.png';
 import './styles.css'
 
-function Register() {
+function Login() {
 
     const {push} = useHistory();
     
@@ -23,9 +23,13 @@ function Register() {
                 <img src={logoImg} alt="logo" />
             </aside>    
 
-            <main className="register-content">
+            <main className="forget-password-content">
                 <fieldset>
-                    <h2>Registrar</h2>
+                    <h2>Esqueci minha senha</h2>
+                    
+                    <p>
+                        Sua redefinição de senha será enviada para o e-mail cadastrado.
+                    </p>
 
                     <label>E-mail</label>
                     <input
@@ -34,28 +38,12 @@ function Register() {
                         onChange={e => setEmail(e.target.value)}
                     />
 
-                    <label>Senha</label>
-                    <input 
-                        type="password"
-                        value={password}
-                        onChange={e => setPassword( e.target.value)}    
-                    />
-
-                    <label>Confirmar Senha</label>
-                    <input 
-                        type="password"
-                        value={password}
-                        onChange={e => setPassword( e.target.value)}    
-                    />
-
-                    <Link className="back-to-login" to="/login">Já possuo uma conta</Link>
-
                     <button 
                     className="submit-button" 
                     onClick={handleLogIn} 
                     disabled={email === "" || password === ""}
                     >
-                        Cadastrar
+                        Entrar
                     </button>
 
                     <Link to="/login" className="goBack-button">
@@ -68,4 +56,4 @@ function Register() {
     )
 }
 
-export default Register
+export default Login

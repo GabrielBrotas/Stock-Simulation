@@ -3,6 +3,7 @@
     height: 100vh;
 
     display: flex;
+
 }
 
 #page-content .aside-app-content {
@@ -23,7 +24,7 @@
     justify-content: center;
 }
 
-#page-content .register-content {
+#page-content .forget-password-content {
     flex: 3;
     display: flex;
     align-items: flex-start;
@@ -35,7 +36,7 @@
     border: none;
 }
 
-#page-content .register-content fieldset {
+#page-content .forget-password-content fieldset {
     position: relative;
 
     height: 85%;
@@ -47,26 +48,38 @@
 
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 15px;
     padding-top: 60px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
-#page-content .register-content fieldset h2 {
+#page-content .forget-password-content fieldset h2 {
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
     line-height: 34px;
     color: #000000;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
-#page-content .register-content fieldset label {
+#page-content .forget-password-content fieldset p {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    
+    display: flex;
+    width: 65%;
+
+    color: #000000;
+    margin-bottom: 30px
+}
+
+#page-content .forget-password-content fieldset label {
     margin-bottom: 7px;
 
     font-size: 16px;
@@ -74,7 +87,7 @@
     color: #000000;
 }
 
-#page-content .register-content fieldset input {
+#page-content .forget-password-content fieldset input {
     color: #343434;
     background: #FFFFFF;
     border: 1px solid #000000;
@@ -88,19 +101,7 @@
     outline: none;
 }
 
-#page-content .register-content fieldset .back-to-login {
-    color: #000000;
-    font-size: 16px;
-    font-style: italic;
-    line-height: 25px;
-    text-decoration: none;
-    margin-bottom: 10px;
-
-    display: flex;
-    justify-content: flex-end;
-}
-
-#page-content .register-content fieldset .submit-button {
+#page-content .forget-password-content fieldset .submit-button {
     width: 100%;
     height: 50px;
     margin-top: 20px;
@@ -114,11 +115,11 @@
     cursor: pointer;
 }
 
-#page-content .register-content fieldset .submit-button:hover {
+#page-content .forget-password-content fieldset .submit-button:hover {
     background: #0000a4;
 }
 
-#page-content .register-content fieldset .goBack-button {
+#page-content .forget-password-content fieldset .goBack-button {
     position: absolute;
     top: 0;
     right: 30px;
@@ -138,6 +139,6 @@
     transition: background-color .2s;
 }
 
-#page-content .register-content fieldset .goBack-button:hover {
+#page-content .forget-password-content fieldset .goBack-button:hover {
     background-color: #0000a4
 }
