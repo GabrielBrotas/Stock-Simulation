@@ -12,9 +12,50 @@
 
 #app-container main {
     grid-area: main;
+    padding-right: 50px;
 }
 
 #app-container main .app-main-wrapper {
     margin: 64px 0px
+}
+
+#app-container main .app-main-wrapper table {
+    width: 100%;
+    color: #000000;
+
+    border-collapse: collapse;
+}
+
+#app-container main .app-main-wrapper table thead {
+    border-top: 1px solid #949494;
+    border-bottom: 1px solid #949494;
+
+}
+
+#app-container main .app-main-wrapper table thead tr,
+#app-container main .app-main-wrapper table tbody tr,
+#app-container main .app-main-wrapper table tfoot tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+#app-container main .app-main-wrapper table thead tr td,
+#app-container main .app-main-wrapper table tbody tr td,
+#app-container main .app-main-wrapper table tfoot tr td {
+    width: 150px;
+    
+    display: flex;
+    justify-content: center;    
+    padding: 13px 0
+} 
+
+#app-container main .app-main-wrapper table tfoot .money-left {
+    background-color: #E6E6E6;
+    border-top: 1px solid #949494;
+    border-bottom: 1px solid #949494;
+}
+
+#app-container main .app-main-wrapper table tfoot .total-money {
+    float: right;
 }
 
