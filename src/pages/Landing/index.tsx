@@ -18,15 +18,15 @@ function Landing() {
                         insera ativos financeiros com suas cotações na sua carteira para aprender a investir
                     </p>
                                     
-                    <Link to="/app" className="enter-app">
+                    <Link to="/login" className="enter-app">
                         <p>Acessar</p>
                     </Link>
                     
                 </main>
                 
-                <section>
+                <div className="logo-container">
                     <img src={logoImg} alt="happy" />
-                </section>
+                </div>
             </div>
         </div>
     )

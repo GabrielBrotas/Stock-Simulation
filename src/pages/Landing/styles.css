@@ -85,7 +85,7 @@
     text-decoration: none;
 }
 
-#page-landing .content-wrapper section {
+#page-landing .content-wrapper .logo-container {
     grid-area: logo;
 
     display: flex;

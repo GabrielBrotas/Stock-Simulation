@@ -6,9 +6,9 @@
 
 body {
     color: #fff;
-    background: #ebf2f5
+    background: #ffffff
 }
 
-/* body, input, button, textarea { */
-    /* font: 600 18px Nunito, sans-serif; weight, size, font-family, enquanto nao carregar a font family usar a sans-serif que todos navegador utilizam    */
-/* } */
+body, input, button, textarea {
+    font: 600 16px Roboto, sans-serif; /* weight, size, font-family, enquanto nao carregar a font family usar a sans-serif que todos navegador utilizam   */
+}
