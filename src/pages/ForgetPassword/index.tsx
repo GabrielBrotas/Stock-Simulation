@@ -43,7 +43,7 @@ function Login() {
                     onClick={handleLogIn} 
                     disabled={email === "" || password === ""}
                     >
-                        Entrar
+                        Enviar
                     </button>
 
                     <Link to="/login" className="goBack-button">
