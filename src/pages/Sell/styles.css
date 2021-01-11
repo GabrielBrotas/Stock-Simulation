@@ -1,0 +1,64 @@
+#app-container main .app-main-wrapper .sell-container {
+    max-width: 500px;
+    max-height: 850px;
+    
+    border: none;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#app-container main .app-main-wrapper .sell-container label {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    color: #000000;
+    margin-bottom: 10px;
+
+    text-align: center;
+}
+
+#app-container main .app-main-wrapper .sell-container select,
+#app-container main .app-main-wrapper .sell-container input {
+    color: #343434;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 20px;
+
+    width: 200px;
+    height: 50px;
+    margin-bottom: 25px;
+    padding: 8px 10px;
+    outline: none;
+    align-self: center;
+} 
+
+#app-container main .app-main-wrapper .sell-container option {
+    background-color: #ffffff;
+    height: 20px;
+}
+
+#app-container main .app-main-wrapper .sell-container button {
+    width: 100%;
+    max-width: 300px;
+
+    height: 50px;
+    margin-top: 20px;
+    align-self: center;
+
+    background: #0000ff;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+
+    transition: background-color .2s;
+    cursor: pointer;
+}
+

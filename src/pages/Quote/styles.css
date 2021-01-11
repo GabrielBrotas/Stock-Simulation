@@ -13,7 +13,7 @@
     justify-content: center;
 }
 
-#app-container main .app-main-wrapper .quote-container h2 {
+#app-container main .app-main-wrapper .quote-container label {
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;

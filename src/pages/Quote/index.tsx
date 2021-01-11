@@ -16,7 +16,7 @@ function Quote() {
                     <AppHeader title="Cotação de Ações" />
                     
                     <fieldset className="quote-container">
-                        <h2>Código da Ação</h2>
+                        <label>Código da Ação</label>
 
                         <input type="text" />
 
