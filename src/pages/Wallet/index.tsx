@@ -33,7 +33,7 @@ function Wallet() {
                                 <td>Tesla </td>
                                 <td>10</td>
                                 <td>346,00</td>
-                                <td>34600,00</td>
+                                <td>34.600,00</td>
                             </tr>
                         </tbody>
                         
