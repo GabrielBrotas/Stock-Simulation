@@ -28,22 +28,22 @@ function Aside() {
                     Carteira
                 </Link>
 
-                <Link to="/wallet">
+                <Link to="/quote">
                     <FiSearch size={24} color="#fff" />
                     Cotar
                 </Link>
 
-                <Link to="/wallet">
+                <Link to="/buy">
                     <FiShoppingBag size={24} color="#fff" />
                     Comprar
                 </Link>
 
-                <Link to="/wallet">
+                <Link to="/sell">
                     <FiDollarSign size={24} color="#fff" />
                     Vender
                 </Link>
 
-                <Link to="/wallet">
+                <Link to="/history">
                     <FiClock size={24} color="#fff" />
                     Histórico
                 </Link>
