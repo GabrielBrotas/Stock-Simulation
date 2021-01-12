@@ -236,6 +236,7 @@ export default {
                     stockSymbol: transaction.stockSymbol,
                     stockName: transaction.stockName,
                     amount: transaction.amount,
+                    price: transaction.price,
                     transcated: transaction.transacted,
                 })
             })
