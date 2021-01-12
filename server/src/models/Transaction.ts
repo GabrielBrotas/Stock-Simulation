@@ -13,6 +13,9 @@ export default class Transaction {
     stockName: string;
     
     @Column()
+    price: number
+
+    @Column()
     amount: string;
 
     @Column()

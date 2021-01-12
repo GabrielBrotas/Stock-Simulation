@@ -96,34 +96,4 @@ export default {
         return res.status(200).send("Usuario criado com sucesso!")
 
     },
-
-    async getTransactions(req: Request, res: Response) {
-        const {id} = req.params
-        
-        const usersRepository = getRepository(User)
-        const transactionsRepository = getRepository(Transaction)
-        const user = await usersRepository.findOne(id)
-
-        try {
-            const transactions = await transactionsRepository.find({
-                relations: ['userId'],
-                where: {userId: user},
-            })
-
-            const userTransactions: Array<{}> = []
-
-            transactions.forEach( transaction => {
-                userTransactions.push({
-                    stockSymbol: transaction.stockSymbol,
-                    stockName: transaction.stockName,
-                    amount: transaction.amount,
-                    transcated: transaction.transacted,
-                })
-            })
-
-            return res.json(userTransactions)
-        } catch (error) {
-            return res.json(error)
-        }
-    },
 }

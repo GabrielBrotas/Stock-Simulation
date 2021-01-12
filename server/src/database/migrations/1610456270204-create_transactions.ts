@@ -28,6 +28,10 @@ export class createTransactions1610456270204 implements MigrationInterface {
                     type: "int"
                 },
                 {
+                    name: "price",
+                    type: "int"
+                },
+                {
                     name: "transacted",
                     type: "timestamp"
                 },

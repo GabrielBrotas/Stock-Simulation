@@ -8,7 +8,7 @@ const routes = express.Router();
 routes.post('/register', UsersController.create)
 routes.post('/login', UsersController.login)
 
-routes.get('/transactions/:user_id', UsersController.getTransactions)
+routes.get('/transactions/:user_id', StocksController.getTransactions)
 routes.get('/quote/:symbol', StocksController.quote)
 routes.post('/buy', StocksController.buy)
 routes.post('/sell', StocksController.sell)

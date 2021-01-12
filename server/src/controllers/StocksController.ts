@@ -108,6 +108,7 @@ export default {
                         stockSymbol, 
                         stockName: stock.name,
                         amount,
+                        price: stock.price,
                         userId: user.id,
                         transacted: new Date().getTime()
                     }    
@@ -124,29 +125,6 @@ export default {
             return res.send(error)
         }
 
-    },
-
-    async wallet(req: Request, res: Response) {
-        const {id} = req.params
-        
-        const usersRepository = getRepository(User)
-        const transactionsRepository = getRepository(Transaction)
-        const user = await usersRepository.findOne(id)
-
-        try {
-            const transactions = await transactionsRepository.find({
-                relations: ['userId'],
-                where: {userId: user},
-            })
-
-            const userTransactions = await getWallet(transactions)
-    
-            return res.json(userTransactions)
-
-        } catch (error) {
-            return res.json(error)
-        }
- 
     },
 
     async sell(req: Request, res: Response) {
@@ -197,6 +175,7 @@ export default {
                     stockSymbol, 
                     stockName: stock.name,
                     amount,
+                    price: stock.price,
                     userId: user.id,
                     transacted: new Date().getTime()
                 }    
@@ -212,6 +191,58 @@ export default {
         } catch (error) {
             return res.send(error)
         }
+    },
+    
+    async wallet(req: Request, res: Response) {
+        const {id} = req.params
+        
+        const usersRepository = getRepository(User)
+        const transactionsRepository = getRepository(Transaction)
+        const user = await usersRepository.findOne(id)
 
-    }
+        try {
+            const transactions = await transactionsRepository.find({
+                relations: ['userId'],
+                where: {userId: user},
+            })
+
+            const userTransactions = await getWallet(transactions)
+    
+            return res.json(userTransactions)
+
+        } catch (error) {
+            return res.json(error)
+        }
+ 
+    },
+
+    async getTransactions(req: Request, res: Response) {
+        const {id} = req.params
+        
+        const usersRepository = getRepository(User)
+        const transactionsRepository = getRepository(Transaction)
+        const user = await usersRepository.findOne(id)
+
+        try {
+            const transactions = await transactionsRepository.find({
+                relations: ['userId'],
+                where: {userId: user},
+            })
+
+            const userTransactions: Array<{}> = []
+
+            transactions.forEach( transaction => {
+                userTransactions.push({
+                    stockSymbol: transaction.stockSymbol,
+                    stockName: transaction.stockName,
+                    amount: transaction.amount,
+                    transcated: transaction.transacted,
+                })
+            })
+
+            return res.json(userTransactions)
+        } catch (error) {
+            return res.json(error)
+        }
+    },
 }
