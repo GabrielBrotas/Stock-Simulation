@@ -7,10 +7,54 @@ import User from '../models/User'
 
 export default {
     
-    async create(req: Request, res: Response) {
+    async login(req: Request, res: Response) {
+        const {email, password} = req.body
+        const userData = {email,password}
 
+        const usersRepository = getRepository(User)
+
+        // schema
+        const schema = Yup.object().shape({
+            email: Yup.string().required(),
+            password: Yup.string().required(),
+        })
+        // validate schema
+        await schema.validate(userData, { 
+            abortEarly: false
+        })
+
+        const user = await usersRepository.findOne({email})
+
+        if(user) {
+
+            bcrypt.compare(userData.password, user.password, (err, match) => {
+                if(match) {
+                    return res.status(200).json({
+                        user: {
+                            id: user.id,
+                            email: user.email
+                        },
+                        token: user.generateToken()
+                    })
+                } else {
+                    return res.status(400).send({password: "Senha inválida"})
+                }
+            } )
+
+        } else {
+            return res.status(404).send({email: "user not found"})
+        }
+        
+    },
+
+    async create(req: Request, res: Response) {
         const {email, password, confirmPassword} = req.body
-        const userData = {email, password}
+        const userData = {
+            email, 
+            password, 
+            passwordResetToken: "",
+            passwordResetTokenExpires: "",
+        }
 
         // get users
         const usersRepository = getRepository(User)
@@ -20,6 +64,10 @@ export default {
         const schema = Yup.object().shape({
             email: Yup.string().required(),
             password: Yup.string().required(),
+        })
+        // validate schema
+        await schema.validate(userData, { 
+            abortEarly: false
         })
 
         // check if email exists
@@ -32,7 +80,7 @@ export default {
         if(emailAlreadyExists) return res.status(400).send({email: "* Este email já está sendo utilizado"})
         
         // chech if passwords matches
-        if(password !== confirmPassword) return res.status(400).send({password: "* As senhas estão divergentes"})
+        if(userData.password !== confirmPassword) return res.status(400).send({password: "* As senhas estão divergentes"})
         
         // create user
         const salt = bcrypt.genSaltSync(10)
