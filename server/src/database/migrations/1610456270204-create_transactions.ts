@@ -28,12 +28,8 @@ export class createTransactions1610456270204 implements MigrationInterface {
                     type: "int"
                 },
                 {
-                    name: "price",
-                    type: "int"
-                },
-                {
                     name: 'user_id',
-                    type: 'int'
+                    type: 'integer'
                 }
             ],    
             foreignKeys: [

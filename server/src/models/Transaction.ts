@@ -14,8 +14,8 @@ export default class Transaction {
     
     @Column()
     amount: string;
-    
-    @Column()
-    price: Date;
-    
+
+    @OneToOne( () => User, user => user.id)
+    @JoinColumn({name: "user_id"})
+    userId: number;
 }

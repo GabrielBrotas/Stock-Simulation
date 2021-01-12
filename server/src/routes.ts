@@ -8,8 +8,9 @@ const routes = express.Router();
 routes.post('/register', UsersController.create)
 routes.post('/login', UsersController.login)
 
-routes.get('/wallet/:user_id', UsersController.getTransactions)
+routes.get('/transactions/:user_id', UsersController.getTransactions)
 
 routes.get('/quote/:symbol', StocksController.quote)
+routes.post('/buy', StocksController.buy)
 
 export default routes

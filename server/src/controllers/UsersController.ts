@@ -102,10 +102,12 @@ export default {
         
         const transactionsRepository = getRepository(Transaction)
 
-        const transactions = await transactionsRepository.find()
-        console.log(transactions)
-
-        return
-        // return res.send(walletsRepository)
+        try {
+            const transactions = await transactionsRepository.find()
+            
+            return res.json(transactions)
+        } catch (error) {
+            return res.json(error)
+        }
     },
 }
