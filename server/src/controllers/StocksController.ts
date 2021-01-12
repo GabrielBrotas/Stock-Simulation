@@ -74,7 +74,6 @@ export default {
                 if(user.cash <= stock.price * amount ) {
                     return res.json({money: "Você não tem dinheiro para comprar essa quantidade"})
                 } else {
-                    console.log(stock)
                     await usersRepository.update({id: user.id}, {cash: user.cash - stock.price * amount})
                     const transactionData = {
                         stockSymbol, 
@@ -132,10 +131,50 @@ export default {
                 stockAlreadyInTransaction = false;
             })
 
-            return res.json(userTransactions)
+            const transactionsFormated = userTransactions.filter( transaction => parseInt(transaction.amount) !== 0)
+    
+            return res.json(transactionsFormated)
+
         } catch (error) {
             return res.json(error)
         }
  
+    },
+
+    async sell(req: Request, res: Response) {
+        const {stockSymbol, amount, userId} = req.body
+
+        // get repositories
+        const usersRepository = getRepository(User)
+        const transactionsRepository = getRepository(Transaction)
+
+        // get user and stock data
+        const user = await usersRepository.findOne({id: userId})
+        const stock: StockProps = await getStock(stockSymbol)        
+        
+        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "Ação não encontrada"})
+       
+        try { 
+            if(user) {
+                    await usersRepository.update({id: user.id}, {cash: user.cash + stock.price * amount})
+                    const transactionData = {
+                        stockSymbol, 
+                        stockName: stock.name,
+                        amount,
+                        userId: user.id
+                    }    
+
+                    const newTransaction = transactionsRepository.create(transactionData)
+                    await transactionsRepository.save(newTransaction)
+
+                    return res.status(200).send("Vendido com sucesso !")
+
+            } else {
+                return res.status(404).send("Usuario não encontrado")
+            }
+        } catch (error) {
+            return res.send(error)
+        }
+
     }
 }

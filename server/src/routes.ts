@@ -11,6 +11,7 @@ routes.post('/login', UsersController.login)
 routes.get('/transactions/:user_id', UsersController.getTransactions)
 routes.get('/quote/:symbol', StocksController.quote)
 routes.post('/buy', StocksController.buy)
+routes.post('/sell', StocksController.sell)
 routes.get('/wallet/:user_id', StocksController.wallet)
 
 export default routes
