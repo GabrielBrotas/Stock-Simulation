@@ -25,6 +25,10 @@ export class createUsers1610404001909 implements MigrationInterface {
                     type: 'varchar',
                 },
                 {
+                    name: 'cash',
+                    type: 'int',           
+                },
+                {
                     name: 'passwordResetToken',
                     type: 'varchar',
                     default: null

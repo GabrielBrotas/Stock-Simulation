@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm'
+import {Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm'
 import jwt from 'jsonwebtoken'
 
 @Entity('users')
@@ -17,6 +17,9 @@ export default class User {
     
     @Column()
     passwordResetTokenExpires: Date;
+
+    @Column()
+    cash: number;
 
     generateToken() {
         return jwt.sign({id: this.id}, 'secret', {

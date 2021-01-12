@@ -32,10 +32,6 @@ export class createTransactions1610456270204 implements MigrationInterface {
                     type: "int"
                 },
                 {
-                    name: "type",
-                    type: "string"
-                },
-                {
                     name: 'user_id',
                     type: 'int'
                 }

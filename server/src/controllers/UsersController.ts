@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm'
 import * as Yup from 'yup'
 
 import User from '../models/User'
+import Wallet from '../models/Transaction'
 
 export default {
     
@@ -32,7 +33,8 @@ export default {
                     return res.status(200).json({
                         user: {
                             id: user.id,
-                            email: user.email
+                            email: user.email,
+                            cash: user.cash
                         },
                         token: user.generateToken()
                     })
@@ -54,6 +56,7 @@ export default {
             password, 
             passwordResetToken: "",
             passwordResetTokenExpires: "",
+            cash: 10000
         }
 
         // get users
@@ -92,5 +95,12 @@ export default {
         await usersRepository.save(user)
         return res.status(200).send("Usuario criado com sucesso!")
 
-    }
+    },
+
+    async getWallet(req: Request, res: Response) {
+        const walletsRepository = getRepository(User)
+
+        const wallet = walletsRepository.find()
+        // return res.send(walletsRepository)
+    },
 }
