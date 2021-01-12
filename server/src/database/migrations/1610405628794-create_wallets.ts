@@ -8,7 +8,7 @@ export class createWallets1610405628794 implements MigrationInterface {
             columns: [  
                 {
                     name: "id",
-                    type: "int",
+                    type: "integer",
                     unsigned: true,
                     isPrimary: true,
                     isGenerated: true,

@@ -8,7 +8,7 @@ export class createTransactions1610456270204 implements MigrationInterface {
             columns: [  
                 {
                     name: "id",
-                    type: "int",
+                    type: "integer",
                     unsigned: true,
                     isPrimary: true,
                     isGenerated: true,
