@@ -1,3 +1,4 @@
+import { query } from "express";
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class createTransactions1610456270204 implements MigrationInterface {
@@ -53,7 +54,7 @@ export class createTransactions1610456270204 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-
+        await queryRunner.dropTable('transactions')
     }
 
 }
