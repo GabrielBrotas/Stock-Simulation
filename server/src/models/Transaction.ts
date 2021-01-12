@@ -1,8 +1,8 @@
 import {Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm'
 import User from './User'
 
-@Entity('wallets')
-export default class Wallet {
+@Entity('transactions')
+export default class Transaction {
     @PrimaryGeneratedColumn('increment')
     id: number;
     

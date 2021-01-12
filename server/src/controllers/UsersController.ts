@@ -4,7 +4,7 @@ import { getRepository } from 'typeorm'
 import * as Yup from 'yup'
 
 import User from '../models/User'
-import Wallet from '../models/Transaction'
+import Transaction from '../models/Transaction'
 
 export default {
     
@@ -97,10 +97,15 @@ export default {
 
     },
 
-    async getWallet(req: Request, res: Response) {
-        const walletsRepository = getRepository(User)
+    async getTransactions(req: Request, res: Response) {
+        const {id} = req.params
+        
+        const transactionsRepository = getRepository(Transaction)
 
-        const wallet = walletsRepository.find()
+        const transactions = await transactionsRepository.find()
+        console.log(transactions)
+
+        return
         // return res.send(walletsRepository)
     },
 }
