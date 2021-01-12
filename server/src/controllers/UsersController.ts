@@ -4,7 +4,6 @@ import { getRepository } from 'typeorm'
 import * as Yup from 'yup'
 
 import User from '../models/User'
-import Transaction from '../models/Transaction'
 
 export default {
     

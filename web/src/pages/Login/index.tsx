@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/actions/usersActions';
 
 import {FiArrowLeft} from 'react-icons/fi'
-
 import logoImg from '../../assets/images/logo-with-name.png';
 import './styles.css'
+
 
 function Login() {
 
     const {push} = useHistory();
-    
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     function handleLogIn() {
         const userData = {email, password}
-        push('/wallet')
+        dispatch(loginUser(userData, push))
     }
 
     return (

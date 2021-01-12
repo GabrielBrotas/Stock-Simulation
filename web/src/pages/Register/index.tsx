@@ -1,20 +1,26 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../redux/actions/usersActions';
 
 import {FiArrowLeft} from 'react-icons/fi'
-
 import logoImg from '../../assets/images/logo-with-name.png';
 import './styles.css'
+
 
 function Register() {
 
     const {push} = useHistory();
-    
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
-    function handleLogIn() {
-        const userData = {email, password}
+    function handleRegister() {
+        const userData = {email, password, confirmPassword}
+
+        dispatch(registerUser(userData, push))
     }
 
     return (
@@ -38,21 +44,21 @@ function Register() {
                     <input 
                         type="password"
                         value={password}
-                        onChange={e => setPassword( e.target.value)}    
+                        onChange={e => setPassword(e.target.value)}    
                     />
 
                     <label>Confirmar Senha</label>
                     <input 
                         type="password"
-                        value={password}
-                        onChange={e => setPassword( e.target.value)}    
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}    
                     />
 
                     <Link className="back-to-login" to="/login">Já possuo uma conta</Link>
 
                     <button 
                     className="submit-button" 
-                    onClick={handleLogIn} 
+                    onClick={handleRegister} 
                     disabled={email === "" || password === ""}
                     >
                         Cadastrar

@@ -2,7 +2,7 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk'
 
 import usersReducer from './reducers/usersReducer'
-import stocksReducer from './reducers/stocksReducer'
+// import stocksReducer from './reducers/stocksReducer'
 
 const middleware = [thunk]
 
@@ -34,7 +34,7 @@ export interface stateProps {
 
 const reducers = combineReducers({
     user: usersReducer,
-    wallet: stocksReducer,
+    // stocks: stocksReducer,
 })
 
 const store = createStore(
