@@ -11,6 +11,12 @@ interface StockProps {
     price: number;
 }
 
+interface TransactionProps {
+    stockSymbol: string;
+    stockName: string;
+    amount: string;
+}
+
 async function getStock(symbol: string) {
     
     try {
@@ -61,13 +67,14 @@ export default {
         const user = await usersRepository.findOne({id: userId})
         const stock: StockProps = await getStock(stockSymbol)        
         
-        if(stock.name === "" && stock.price === 0 ) return res.status(404).json({error: "Ação não encontrada"})
+        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "Ação não encontrada"})
        
         try { 
             if(user) {
                 if(user.cash <= stock.price * amount ) {
                     return res.json({money: "Você não tem dinheiro para comprar essa quantidade"})
                 } else {
+                    console.log(stock)
                     await usersRepository.update({id: user.id}, {cash: user.cash - stock.price * amount})
                     const transactionData = {
                         stockSymbol, 
@@ -91,7 +98,44 @@ export default {
     },
 
     async wallet(req: Request, res: Response) {
- 
+        const {id} = req.params
+        
+        const usersRepository = getRepository(User)
+        const transactionsRepository = getRepository(Transaction)
+        const user = await usersRepository.findOne(id)
+
+        try {
+            const transactions = await transactionsRepository.find({
+                relations: ['userId'],
+                where: {userId: user},
+            })
+
+            const userTransactions: Array<TransactionProps> = []
+            let stockAlreadyInTransaction: boolean = false;
+
+            transactions.forEach( transaction => {
+
+                userTransactions.forEach( userTransaction => {
+                    if(transaction.stockSymbol === userTransaction.stockSymbol) {
+                        userTransaction.amount = transaction.amount + userTransaction.amount;
+                        stockAlreadyInTransaction = true;
+                    }
+                })
+
+                if(!stockAlreadyInTransaction) {
+                    userTransactions.push({
+                        stockSymbol: transaction.stockSymbol,
+                        stockName: transaction.stockName,
+                        amount: transaction.amount,
+                    })
+                }
+                stockAlreadyInTransaction = false;
+            })
+
+            return res.json(userTransactions)
+        } catch (error) {
+            return res.json(error)
+        }
  
     }
 }

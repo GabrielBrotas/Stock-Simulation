@@ -110,17 +110,17 @@ export default {
                 where: {userId: user},
             })
 
-            const userTransaction: Array<{}> = []
+            const userTransactions: Array<{}> = []
 
             transactions.forEach( transaction => {
-                userTransaction.push({
+                userTransactions.push({
                     stockSymbol: transaction.stockSymbol,
                     stockName: transaction.stockName,
                     amount: transaction.amount,
                 })
             })
 
-            return res.json(userTransaction)
+            return res.json(userTransactions)
         } catch (error) {
             return res.json(error)
         }
