@@ -16,7 +16,7 @@ export class createTransactions1610456270204 implements MigrationInterface {
                     generationStrategy: 'increment'
                 },
                 {
-                    name: "stock",
+                    name: "stockSymbol",
                     type: "string",
                 },
                 {

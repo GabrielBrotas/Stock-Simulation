@@ -7,7 +7,7 @@ export default class Transaction {
     id: number;
     
     @Column()
-    stock: string;
+    stockSymbol: string;
     
     @Column()
     stockName: string;

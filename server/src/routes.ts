@@ -10,6 +10,6 @@ routes.post('/login', UsersController.login)
 
 routes.get('/wallet/:user_id', UsersController.getTransactions)
 
-routes.get('/stock', StocksController.quote)
+routes.get('/quote/:symbol', StocksController.quote)
 
 export default routes
