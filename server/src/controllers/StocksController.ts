@@ -46,6 +46,35 @@ async function getStock(symbol: string) {
     
 }
 
+async function getWallet(transactions: Array<TransactionProps>) {
+    const userTransactions: Array<TransactionProps> = []
+    let stockAlreadyInTransaction: boolean = false;
+
+    transactions.forEach( transaction => {
+
+        userTransactions.forEach( userTransaction => {
+            if(transaction.stockSymbol === userTransaction.stockSymbol) {
+                userTransaction.amount = transaction.amount + userTransaction.amount;
+                stockAlreadyInTransaction = true;
+            }
+        })
+
+        if(!stockAlreadyInTransaction) {
+            userTransactions.push({
+                stockSymbol: transaction.stockSymbol,
+                stockName: transaction.stockName,
+                amount: transaction.amount,
+            })
+        }
+        stockAlreadyInTransaction = false;
+    })
+
+    const transactionsFormated = userTransactions.filter( transaction => parseInt(transaction.amount) !== 0 && parseInt(transaction.amount) >= 0)
+
+    return transactionsFormated;
+
+}
+
 export default {
     async quote(req: Request, res: Response) {
         const {symbol} = req.params
@@ -79,7 +108,8 @@ export default {
                         stockSymbol, 
                         stockName: stock.name,
                         amount,
-                        userId: user.id
+                        userId: user.id,
+                        transacted: new Date().getTime()
                     }    
 
                     const newTransaction = transactionsRepository.create(transactionData)
@@ -109,31 +139,9 @@ export default {
                 where: {userId: user},
             })
 
-            const userTransactions: Array<TransactionProps> = []
-            let stockAlreadyInTransaction: boolean = false;
-
-            transactions.forEach( transaction => {
-
-                userTransactions.forEach( userTransaction => {
-                    if(transaction.stockSymbol === userTransaction.stockSymbol) {
-                        userTransaction.amount = transaction.amount + userTransaction.amount;
-                        stockAlreadyInTransaction = true;
-                    }
-                })
-
-                if(!stockAlreadyInTransaction) {
-                    userTransactions.push({
-                        stockSymbol: transaction.stockSymbol,
-                        stockName: transaction.stockName,
-                        amount: transaction.amount,
-                    })
-                }
-                stockAlreadyInTransaction = false;
-            })
-
-            const transactionsFormated = userTransactions.filter( transaction => parseInt(transaction.amount) !== 0)
+            const userTransactions = await getWallet(transactions)
     
-            return res.json(transactionsFormated)
+            return res.json(userTransactions)
 
         } catch (error) {
             return res.json(error)
@@ -152,22 +160,51 @@ export default {
         const user = await usersRepository.findOne({id: userId})
         const stock: StockProps = await getStock(stockSymbol)        
         
+        // check if symbol exists
         if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "Ação não encontrada"})
-       
+
         try { 
+
+            // get user stocks
+            const transactions = await transactionsRepository.find({
+                relations: ['userId'],
+                where: {userId: user},
+            })
+            const userTransactions = await getWallet(transactions)
+            let userHasStock: boolean = false
+            let walletAmount: number = 0
+
+            // get stock
+            userTransactions.forEach( transaction => {
+                if(transaction.stockSymbol === stockSymbol) {
+                    userHasStock = true;
+                    walletAmount = parseInt(transaction.amount)
+                }
+            })
+
+            // check if have stock and quantity
+            if(!userHasStock) {
+                return res.status(404).send("Você não possu esta ação")
+            } else if (walletAmount < -amount) {
+                return res.status(403).send("Você não possui essa quantidade")
+            }
+
             if(user) {
-                    await usersRepository.update({id: user.id}, {cash: user.cash + stock.price * amount})
-                    const transactionData = {
-                        stockSymbol, 
-                        stockName: stock.name,
-                        amount,
-                        userId: user.id
-                    }    
 
-                    const newTransaction = transactionsRepository.create(transactionData)
-                    await transactionsRepository.save(newTransaction)
+                await usersRepository.update({id: user.id}, {cash: user.cash + stock.price * -amount})
 
-                    return res.status(200).send("Vendido com sucesso !")
+                const transactionData = {
+                    stockSymbol, 
+                    stockName: stock.name,
+                    amount,
+                    userId: user.id,
+                    transacted: new Date().getTime()
+                }    
+
+                const newTransaction = transactionsRepository.create(transactionData)
+                await transactionsRepository.save(newTransaction)
+
+                return res.status(200).send("Vendido com sucesso !")
 
             } else {
                 return res.status(404).send("Usuario não encontrado")

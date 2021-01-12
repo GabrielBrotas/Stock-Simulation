@@ -28,9 +28,13 @@ export class createTransactions1610456270204 implements MigrationInterface {
                     type: "int"
                 },
                 {
+                    name: "transacted",
+                    type: "timestamp"
+                },
+                {
                     name: 'user_id',
                     type: 'integer'
-                }
+                },
             ],    
             foreignKeys: [
                 {
