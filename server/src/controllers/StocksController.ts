@@ -90,6 +90,8 @@ export default {
 
     },
 
-    async sell(req: Request, res: Response) {
+    async wallet(req: Request, res: Response) {
+ 
+ 
     }
 }

@@ -34,7 +34,7 @@ export default {
                         user: {
                             id: user.id,
                             email: user.email,
-                            cash: user.cash
+                            cash: user.cash.toFixed(2)
                         },
                         token: user.generateToken()
                     })
@@ -100,12 +100,27 @@ export default {
     async getTransactions(req: Request, res: Response) {
         const {id} = req.params
         
+        const usersRepository = getRepository(User)
         const transactionsRepository = getRepository(Transaction)
+        const user = await usersRepository.findOne(id)
 
         try {
-            const transactions = await transactionsRepository.find()
-            
-            return res.json(transactions)
+            const transactions = await transactionsRepository.find({
+                relations: ['userId'],
+                where: {userId: user},
+            })
+
+            const userTransaction: Array<{}> = []
+
+            transactions.forEach( transaction => {
+                userTransaction.push({
+                    stockSymbol: transaction.stockSymbol,
+                    stockName: transaction.stockName,
+                    amount: transaction.amount,
+                })
+            })
+
+            return res.json(userTransaction)
         } catch (error) {
             return res.json(error)
         }
