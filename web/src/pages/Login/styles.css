@@ -71,6 +71,7 @@
     font-size: 16px;
     line-height: 22px;
     color: #000000;
+    margin-top: 15px;
 }
 
 #page-content .login-content fieldset input {
@@ -82,9 +83,14 @@
 
     width: 100%;
     height: 50px;
-    margin-bottom: 15px;
     padding: 8px;
     outline: none;
+}
+
+#page-content .login-content fieldset .error {
+    color: red;
+    font-size: small;
+    margin-top: 5px;
 }
 
 #page-content .login-content fieldset .login-options {

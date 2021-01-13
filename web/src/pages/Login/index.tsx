@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/actions/usersActions';
+import { StateProps } from '../../redux/store';
 
-import {FiArrowLeft} from 'react-icons/fi'
+import {FiArrowLeft} from 'react-icons/fi';
 import logoImg from '../../assets/images/logo-with-name.png';
-import './styles.css'
-
+import './styles.css';
 
 function Login() {
 
     const {push} = useHistory();
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const {error} = useSelector( (state: StateProps) => state.user)
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     function handleLogIn() {
         const userData = {email, password}
@@ -37,6 +39,7 @@ function Login() {
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
+                    {error.email && <span className="error">{error.email}</span>}
 
                     <label>Senha</label>
                     <input 
@@ -44,6 +47,7 @@ function Login() {
                         value={password}
                         onChange={e => setPassword( e.target.value)}    
                     />
+                    {error.password && <span className="error">{error.password}</span>}
 
                     <div className="login-options">
                         <div className="input-check-box">

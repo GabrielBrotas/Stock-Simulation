@@ -27,7 +27,6 @@ export default {
         const user = await usersRepository.findOne({email})
 
         if(user) {
-
             bcrypt.compare(userData.password, user.password, (err, match) => {
                 if(match) {
                     return res.status(200).json({
@@ -39,12 +38,12 @@ export default {
                         token: user.generateToken()
                     })
                 } else {
-                    return res.status(400).send({password: "Senha inválida"})
+                    return res.status(400).send({password: "* Senha inválida"})
                 }
             } )
 
         } else {
-            return res.status(404).send({email: "user not found"})
+            return res.status(404).send({email: "* Usuario não encontrado"})
         }
         
     },

@@ -15,6 +15,7 @@ export const registerUser = (userData: userDataProps, push: Function) => (dispat
         dispatch(loginUser(userData, push))
     })
     .catch( err => {
+        console.log(err.response.data)
         dispatch({type: SET_ERROR, payload: err.response.data})
     })
 
@@ -29,9 +30,9 @@ export const loginUser = (userData: userDataProps, push: Function) => (dispatch:
         push('/wallet')
     })
     .catch( err => {
+        console.log(err.response.data)
         dispatch({type: SET_ERROR, payload: err.response.data})
     })
-
 }
 
 export const logoutUser = () => (dispatch: Function) => {
