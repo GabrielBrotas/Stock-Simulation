@@ -8,6 +8,22 @@ import { validateEmail } from '../utils/helpers'
 
 export default {
     
+    async getUserData(req: Request, res: Response) {
+        const {id} = req.params
+
+        const usersRepository = getRepository(User)
+        const user = await usersRepository.findOne(id)
+
+        if(!user) {
+            return res.status(404).send({error: '* Usuario não encontradocd .'})
+        } else {
+            return res.status(200).send({
+                email: user.email,
+                id: user.id,
+            })
+        }
+    },
+
     async login(req: Request, res: Response) {
         const {email, password} = req.body
         const userData = {email,password}

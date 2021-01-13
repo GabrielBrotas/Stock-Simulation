@@ -5,6 +5,7 @@ import UsersController from './controllers/UsersController';
 
 const routes = express.Router();
 
+routes.get('/user/:id', UsersController.getUserData)
 routes.post('/register', UsersController.create)
 routes.post('/login', UsersController.login)
 
