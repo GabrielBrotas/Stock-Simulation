@@ -41,6 +41,16 @@ export const logoutUser = () => (dispatch: Function) => {
     dispatch({type: SET_UNAUTHENTICATED});
 }
 
+export const getUserData = (userId: number) => (dispatch: Function) => {
+    api.get(`/user/${userId}`)
+    .then( res => {
+        dispatch({type: SET_USER, payload: res.data})
+    })
+    .catch( err => {
+        console.log(err)
+    })
+}
+
 export const resetPassword = (data: Object, push: Function) => (dispatch: Function) => {
     api.post('/reset-password', data)
         .then( () => {

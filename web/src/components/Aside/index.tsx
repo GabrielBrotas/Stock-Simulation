@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { FiBriefcase, FiSearch, FiShoppingBag, FiDollarSign, FiClock, FiPower } from 'react-icons/fi';
 
 import logoImg from '../../assets/images/logo.png';
 import './styles.css'
+import { logoutUser } from '../../redux/actions/usersActions';
 
 function Aside() {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [pathName, setPathName] = useState('')
 
@@ -21,7 +24,7 @@ function Aside() {
     }
 
     function handleLogoutUser() {
-
+        dispatch(logoutUser())
     }
 
     return (

@@ -10,19 +10,24 @@ import Buy from './pages/Buy'
 import Sell from './pages/Sell'
 import History from './pages/History'
 
+import AuthRoute from './utils/AuthRoute'
+import NotAuthRoute from './utils/NotAuthRoute'
+
 function Routes() {
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Landing} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
-                <Route path="/forget-password" component={ForgetPassword} />
-                <Route path="/wallet" component={Wallet} />
-                <Route path="/quote" component={Quote} />
-                <Route path="/buy" component={Buy} />
-                <Route path="/sell" component={Sell} />
-                <Route path="/history" component={History} />
+                
+                <NotAuthRoute path="/login" component={Login} />
+                <NotAuthRoute path="/register" component={Register} />
+                <NotAuthRoute path="/forget-password" component={ForgetPassword} />
+
+                <AuthRoute path="/wallet" component={Wallet} />
+                <AuthRoute path="/quote" component={Quote} />
+                <AuthRoute path="/buy" component={Buy} />
+                <AuthRoute path="/sell" component={Sell} />
+                <AuthRoute path="/history" component={History} />
             </Switch>
         </BrowserRouter>
     )
