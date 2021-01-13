@@ -54,7 +54,7 @@ function Login() {
                     </div>
 
                     <button 
-                    className="submit-button" 
+                    className={(email === "" || password === "") ? "submit-button disabled" : "submit-button activated"}
                     onClick={handleLogIn} 
                     disabled={email === "" || password === ""}
                     >

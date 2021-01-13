@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm'
 import * as Yup from 'yup'
 
 import User from '../models/User'
+import { validateEmail } from '../utils/helpers'
 
 export default {
     
@@ -62,6 +63,7 @@ export default {
         const usersRepository = getRepository(User)
         const users = await usersRepository.find();
 
+        // * validations
         // schema
         const schema = Yup.object().shape({
             email: Yup.string().required(),
@@ -72,6 +74,12 @@ export default {
             abortEarly: false
         })
 
+        // check if is email
+        const isEmail = validateEmail(email)
+        if(!isEmail) {
+            return res.status(400).send({email: "* Email inválido"})
+        }
+
         // check if email exists
         let emailAlreadyExists = false;
         users.forEach( user => {
@@ -79,12 +87,19 @@ export default {
                 emailAlreadyExists = true;
             }
         })
+
         if(emailAlreadyExists) return res.status(400).send({email: "* Este email já está sendo utilizado"})
         
-        // chech if passwords matches
+        // check if passwords matches
         if(userData.password !== confirmPassword) return res.status(400).send({password: "* As senhas estão divergentes"})
-        
-        // create user
+
+        // check is password is small
+        const userPassword:string = userData.password
+        if(userPassword.length <= 5 ) {
+            return res.status(400).send({password: "Senha muito fraca"})
+        }
+
+        // * create user
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(userData.password, salt)
 

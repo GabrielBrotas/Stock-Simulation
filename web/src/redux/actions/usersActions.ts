@@ -11,6 +11,7 @@ export const registerUser = (userData: userDataProps, push: Function) => (dispat
 
     api.post('/register', userData)
     .then( () => {
+        dispatch({type: CLEAR_ERROR})
         dispatch(loginUser(userData, push))
     })
     .catch( err => {

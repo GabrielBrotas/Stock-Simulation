@@ -8,7 +8,7 @@ const middleware = [thunk]
 
 const initialState = {}
 
-export interface stateProps {
+export interface StateProps {
     user: {
         credentials: {
             id: string,
@@ -16,7 +16,10 @@ export interface stateProps {
             cash: string,   
         },
         authenticated: boolean,
-        error: string
+        error: {
+            email: string,
+            password: string,
+        }
     },
     stocks: {
         wallet: Array<{

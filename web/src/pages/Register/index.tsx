@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/actions/usersActions';
+import { StateProps } from '../../redux/store'
 
 import {FiArrowLeft} from 'react-icons/fi'
 import logoImg from '../../assets/images/logo-with-name.png';
@@ -13,9 +14,11 @@ function Register() {
     const {push} = useHistory();
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const {error} = useSelector( (state: StateProps) => state.user);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     function handleRegister() {
         const userData = {email, password, confirmPassword}
@@ -38,26 +41,31 @@ function Register() {
                         type="text"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
+                        required
                     />
+                    {error.email && <span className="error">{error.email}</span>}
 
                     <label>Senha</label>
                     <input 
                         type="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}    
+                        required
                     />
+                    {error.password && <span className="error">{error.password}</span>}
 
                     <label>Confirmar Senha</label>
                     <input 
                         type="password"
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}    
+                        required
                     />
 
                     <Link className="back-to-login" to="/login">Já possuo uma conta</Link>
 
                     <button 
-                    className="submit-button" 
+                    className={(email === "" || password === "" || confirmPassword === "") ? "submit-button disabled" : "submit-button activated"} 
                     onClick={handleRegister} 
                     disabled={email === "" || password === ""}
                     >
