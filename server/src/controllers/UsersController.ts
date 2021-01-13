@@ -19,6 +19,7 @@ export default {
         } else {
             return res.status(200).send({
                 email: user.email,
+                cash: user.cash.toFixed(2),
                 id: user.id,
             })
         }

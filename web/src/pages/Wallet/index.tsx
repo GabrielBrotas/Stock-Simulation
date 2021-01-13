@@ -1,4 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { StateProps } from "../../redux/store"
+import { getUserWallet } from "../../redux/actions/stocksActions"
 
 import AppHeader from "../../components/AppHeader"
 import Aside from "../../components/Aside"
@@ -6,6 +9,19 @@ import Aside from "../../components/Aside"
 import './styles.css'
 
 function Wallet() {
+
+    const dispatch = useDispatch();
+    
+    const {credentials} = useSelector( (state: StateProps) => state.user);
+    const {wallet} = useSelector( (state: StateProps) => state.stocks);
+
+    useEffect(() => {
+        dispatch(getUserWallet(credentials.id))
+    }, [credentials.id, dispatch])
+
+    if(!credentials.email) {
+        return <p>loading...</p>
+    }
     
     return (
         <div id="app-container">
@@ -43,7 +59,7 @@ function Wallet() {
                                     Dinheiro
                                 </td>
                                 <td>
-                                    R$100.000
+                                    U$ {credentials.cash}
                                 </td>
                             </tr>
                             
