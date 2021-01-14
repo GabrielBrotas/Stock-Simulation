@@ -30,6 +30,7 @@ export interface StateProps {
             stockSymbol: string;
             stockName: string;
             amount: string;
+            id: number;
         }>,
         transactions: Array<{
             id: number;

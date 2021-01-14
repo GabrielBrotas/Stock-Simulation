@@ -15,6 +15,7 @@ interface TransactionProps {
     stockSymbol: string;
     stockName: string;
     amount: string;
+    id: number;
 }
 
 async function getStock(symbol: string) {
@@ -64,6 +65,7 @@ async function getWallet(transactions: Array<TransactionProps>) {
                 stockSymbol: transaction.stockSymbol,
                 stockName: transaction.stockName,
                 amount: transaction.amount,
+                id: transaction.id
             })
         }
         stockAlreadyInTransaction = false;
@@ -114,7 +116,7 @@ export default {
                 } else {
                     await usersRepository.update({id: user.id}, {cash: user.cash - stock.price * amount})
                     const transactionData = {
-                        stockSymbol, 
+                        stockSymbol: stockSymbol.toUpperCase(), 
                         stockName: stock.name,
                         amount,
                         price: stock.price,
@@ -148,7 +150,7 @@ export default {
         const stock: StockProps = await getStock(stockSymbol)        
         
         // check if symbol exists
-        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "Ação não encontrada"})
+        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "* Ação não encontrada"})
 
         try { 
 
@@ -163,7 +165,7 @@ export default {
 
             // get stock
             userTransactions.forEach( transaction => {
-                if(transaction.stockSymbol === stockSymbol) {
+                if(transaction.stockSymbol === stockSymbol.toUpperCase()) {
                     userHasStock = true;
                     walletAmount = parseInt(transaction.amount)
                 }
@@ -181,7 +183,7 @@ export default {
                 await usersRepository.update({id: user.id}, {cash: user.cash + stock.price * -amount})
 
                 const transactionData = {
-                    stockSymbol, 
+                    stockSymbol: stockSymbol.toUpperCase(), 
                     stockName: stock.name,
                     amount,
                     price: stock.price,

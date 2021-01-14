@@ -38,7 +38,7 @@ function Buy() {
                         <label>Código da Ação</label>
                         <input
                          type="text"
-                         value={stockSymbol}
+                         value={stockSymbol.toUpperCase()}
                          onChange={ e => setStockSymbol(e.target.value)}
                         />
                         

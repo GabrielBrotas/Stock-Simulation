@@ -34,7 +34,7 @@ function Quote() {
 
                         <input 
                          type="text"
-                         value={stockSymbol}
+                         value={stockSymbol.toUpperCase()}
                          onChange={ e => setStockSymbol(e.target.value)}
                         />
 
