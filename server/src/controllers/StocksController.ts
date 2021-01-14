@@ -99,13 +99,18 @@ export default {
         // get user and stock data
         const user = await usersRepository.findOne({id: userId})
         const stock: StockProps = await getStock(stockSymbol)        
-        
-        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "Ação não encontrada"})
        
+        // validation
+        if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "* Ação não encontrada"})
+
+        if(amount <= 0 || amount === null || amount === undefined) {
+            return res.status(400).json({error: "* Quantidade inválida"})
+        }
+
         try { 
             if(user) {
                 if(user.cash <= stock.price * amount ) {
-                    return res.json({money: "Você não tem dinheiro para comprar essa quantidade"})
+                    return res.json({error: "* Você não tem dinheiro para comprar essa quantidade"})
                 } else {
                     await usersRepository.update({id: user.id}, {cash: user.cash - stock.price * amount})
                     const transactionData = {
@@ -231,6 +236,7 @@ export default {
             const transactions = await transactionsRepository.find({
                 relations: ['userId'],
                 where: {userId: user},
+                order: {transacted: 'DESC'}
             })
 
             const userTransactions: Array<{}> = []

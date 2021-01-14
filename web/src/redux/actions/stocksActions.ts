@@ -23,11 +23,24 @@ export const getStock = (stockSymbol: string) => (dispatch: Function) => {
             dispatch({type: CLEAR_STOCK_ERROR})
             dispatch({type: GET_STOCK, payload: res.data})
         })
-        .catch( res => {
-            dispatch({type: SET_STOCK_ERROR, payload: res.response.data})
+        .catch( err => {
+            dispatch({type: SET_STOCK_ERROR, payload: err.response.data})
         })
     }
     
+}
+
+export const buyStock = (data: Object, userId: string, push: Function) => (dispatch: Function) => {
+    api.post('/buy', data)
+        .then( () => {
+            dispatch({type: CLEAR_STOCK_ERROR})
+            alert("Ação comprada com sucesso!")
+            dispatch(getUserWallet(userId))
+            push('/wallet')
+        })
+        .catch( err => {
+            dispatch({type: SET_STOCK_ERROR, payload: err.response.data})
+        })
 }
 
 export const getTransactions = (userId: string) => (dispatch: Function) => {

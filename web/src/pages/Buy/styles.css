@@ -39,6 +39,12 @@
     align-self: center;
 }
 
+#app-container main .app-main-wrapper .buy-container .error {
+    font-size: smaller;
+    color: red;
+    text-align: center;
+}
+
 #app-container main .app-main-wrapper .buy-container button {
     width: 100%;
     max-width: 300px;
