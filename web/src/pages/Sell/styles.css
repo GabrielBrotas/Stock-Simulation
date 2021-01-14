@@ -40,6 +40,12 @@
     align-self: center;
 } 
 
+#app-container main .app-main-wrapper .sell-container .error {
+    color: red;
+    font-size: smaller;
+    text-align: center;
+} 
+
 #app-container main .app-main-wrapper .sell-container option {
     background-color: #ffffff;
     height: 20px;

@@ -152,6 +152,11 @@ export default {
         // check if symbol exists
         if((stock.name === "" || stock.name === null) && (stock.price === 0 || stock.price === undefined) ) return res.status(404).json({error: "* Ação não encontrada"})
 
+        // check amount
+        if(amount <= 0 || amount === null || amount === undefined) {
+            return res.status(400).json({error: "* Quantidade inválida"})
+        }
+        
         try { 
 
             // get user stocks

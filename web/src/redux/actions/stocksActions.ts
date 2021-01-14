@@ -43,6 +43,21 @@ export const buyStock = (data: Object, userId: string, push: Function) => (dispa
         })
 }
 
+export const sellStock = (data: Object, userId: string, push: Function) => (dispatch: Function) => {
+    api.post('/sell', data)
+        .then( () => {
+            dispatch({type: CLEAR_STOCK_ERROR})
+            alert("Ação vendida com sucesso!")
+            dispatch(getUserWallet(userId))
+            push('/wallet')
+        })
+        .catch( err => {
+            dispatch({type: SET_STOCK_ERROR, payload: err.response.data})
+        })
+}
+
+
+
 export const getTransactions = (userId: string) => (dispatch: Function) => {
 
     api.get(`/transactions/${userId}`)

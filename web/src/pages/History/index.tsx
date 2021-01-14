@@ -12,7 +12,6 @@ function History() {
 
     const {credentials} = useSelector( (state: StateProps) => state.user);
     const {transactions} = useSelector( (state: StateProps) => state.stocks);
-    console.log(transactions);
 
     useEffect( () => {
         dispatch(getTransactions(credentials.id))
