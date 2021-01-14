@@ -9,5 +9,4 @@ export const CLEAR_STOCK_ERROR = 'CLEAR_STOCK_ERROR'
 
 export const GET_WALLET = 'GET_WALLET'
 export const GET_STOCK = 'GET_STOCK'
-export const BUY_STOCK = 'BUY_STOCK'
-export const SELL_STOCK = 'SELL_STOCK'
+export const GET_TRANSACTIONS = 'GET_TRANSACTIONS'

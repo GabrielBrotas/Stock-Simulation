@@ -1,5 +1,5 @@
 import api from "../../services/api"
-import { CLEAR_STOCK_ERROR, GET_STOCK, GET_WALLET, SET_STOCK_ERROR } from "../types"
+import { CLEAR_STOCK_ERROR, GET_STOCK, GET_TRANSACTIONS, GET_WALLET, SET_STOCK_ERROR } from "../types"
 
 export const getUserWallet = (userId: string) => (dispatch: Function) => {
     api.get(`/wallet/${userId}`)
@@ -28,4 +28,13 @@ export const getStock = (stockSymbol: string) => (dispatch: Function) => {
         })
     }
     
+}
+
+export const getTransactions = (userId: string) => (dispatch: Function) => {
+
+    api.get(`/transactions/${userId}`)
+        .then( res => {
+            dispatch({type: GET_TRANSACTIONS, payload: res.data})
+        })
+        .catch( err => console.log(err))
 }

@@ -32,10 +32,12 @@ export interface StateProps {
             amount: string;
         }>,
         transactions: Array<{
+            id: number;
             stockSymbol: string;
             stockName: string;
-            amount: string;
-            price: string;
+            amount: number;
+            price: number;
+            transacted: number;
         }>,
         error: {
             error: string

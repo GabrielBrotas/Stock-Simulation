@@ -237,6 +237,7 @@ export default {
 
             transactions.forEach( transaction => {
                 userTransactions.push({
+                    id: transaction.id,
                     stockSymbol: transaction.stockSymbol,
                     stockName: transaction.stockName,
                     amount: transaction.amount,
