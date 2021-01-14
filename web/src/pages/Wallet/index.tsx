@@ -14,6 +14,7 @@ function Wallet() {
     
     const {credentials} = useSelector( (state: StateProps) => state.user);
     const {wallet} = useSelector( (state: StateProps) => state.stocks);
+    console.log(wallet)
 
     useEffect(() => {
         dispatch(getUserWallet(credentials.id))
@@ -44,13 +45,16 @@ function Wallet() {
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>TSLA34</td>
-                                <td>Tesla </td>
-                                <td>10</td>
+                            {wallet.map( stock => (
+                            <tr key={stock.id}>
+                                <td>{stock.stockSymbol}</td>
+                                <td>{stock.stockSymbol}</td>
+                                <td>{stock.amount}</td>
                                 <td>346,00</td>
                                 <td>34.600,00</td>
                             </tr>
+                            ))}
+                            
                         </tbody>
                         
                         <tfoot>
