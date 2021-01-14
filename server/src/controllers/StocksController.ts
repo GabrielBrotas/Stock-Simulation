@@ -79,8 +79,12 @@ export default {
     async quote(req: Request, res: Response) {
         const {symbol} = req.params
 
+        if(symbol.trim() === "" || symbol === null) {
+            return res.status(404).send({error: "* Campo vazio"})
+        }
+
         const stock = await getStock(symbol)
-        if(stock.name === "" && stock.price === 0 ) return res.status(404).json({error: "Ação não encontrada"})
+        if(stock.name === "" && stock.price === 0 ) return res.status(404).send({error: "* Ação não encontrada"})
 
         return res.status(200).json(stock)
     },

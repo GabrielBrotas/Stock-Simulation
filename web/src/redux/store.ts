@@ -22,6 +22,10 @@ export interface StateProps {
         }
     },
     stocks: {
+        stock: {
+            name: string;
+            price: number;
+        };
         wallet: Array<{
             stockSymbol: string;
             stockName: string;
@@ -33,7 +37,9 @@ export interface StateProps {
             amount: string;
             price: string;
         }>,
-        error: {} 
+        error: {
+            error: string
+        } 
     }
 }
 

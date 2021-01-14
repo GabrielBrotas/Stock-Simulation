@@ -1,11 +1,25 @@
-import React from "react"
-import AppHeader from "../../components/AppHeader"
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { StateProps } from "../../redux/store";
 
+import AppHeader from "../../components/AppHeader"
 import Aside from "../../components/Aside"
+
 import './styles.css'
+import { getStock } from "../../redux/actions/stocksActions";
 
 function Quote() {
     
+    const dispatch = useDispatch();
+    
+    const {stock, error} = useSelector( (state: StateProps) => state.stocks)
+
+    const [stockSymbol, setStockSymbol] = useState('');
+    
+    function handleQuoteStock() {
+        dispatch(getStock(stockSymbol))
+    }
+
     return (
         <div id="app-container">
             
@@ -18,11 +32,17 @@ function Quote() {
                     <fieldset className="quote-container">
                         <label>Código da Ação</label>
 
-                        <input type="text" />
+                        <input 
+                         type="text"
+                         value={stockSymbol}
+                         onChange={ e => setStockSymbol(e.target.value)}
+                        />
 
-                        <span>Uma ação de TSLA34 vale U$137,60</span>
+                        {error.error && <span className="error">{error.error}</span>}
 
-                        <button>
+                        {stock.name && !error.error &&  <span className="stock">Uma ação de {stock.name} vale U$ {stock.price}</span>}
+
+                        <button onClick={handleQuoteStock}>
                             Cotar
                         </button>
                     </fieldset>
